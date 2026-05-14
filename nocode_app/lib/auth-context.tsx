@@ -34,20 +34,25 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
   };
 
-  const refreshUser = async () => {
-    try {
-      const response = await insforgeClient.auth.getCurrentUser();
+const refreshUser = async () => {
+  setIsLoading(true);
+  try {
+    const response: any = await insforgeClient.auth.getCurrentUser();
 
-      // Insforge likely returns { data, error } or direct user object
-      const rawUser = response?.data ?? null;
-      setUser(mapUser(rawUser));
-    } catch (error) {
-      console.error('Error refreshing user:', error);
-      setUser(null);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    const rawUser =
+      response?.data?.user ??   // <- most common
+      response?.user ??         // <- sometimes
+      response?.data ??         // <- sometimes
+      null;
+
+    setUser(mapUser(rawUser));
+  } catch (error) {
+    console.error('Error refreshing user:', error);
+    setUser(null);
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   useEffect(() => {
     refreshUser();
