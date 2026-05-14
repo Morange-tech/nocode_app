@@ -25,21 +25,22 @@ export default function LoginPage() {
       const { data, error: authError } = await signIn(email, password);
 
        // 👇 Add these logs — check browser DevTools console
-    console.log('Auth response:', { data, error: authError });
+console.log('Auth response:', { data, error: authError });
+console.log('data.user:', (data as any)?.user);
+console.log('data.session.user:', (data as any)?.session?.user);
 
       if (authError) {
         setError(authError.message || 'Invalid email or password');
         return;
       }
 
-      if (data?.user) {
-        await refreshUser();
-        router.push('/dashboard');
-      }
-      else {
-      // 👇 Add this fallback so it doesn't silently fail
-      setError('Sign in succeeded but no user was returned');
-    }
+      console.log('before refreshUser');
+      await refreshUser();
+      console.log('after refreshUser');
+
+      console.log('pushing to dashboard');
+      router.push('/dashboard');
+
     } catch (err: any) {
       setError(err.message || 'An unexpected error occurred');
     } finally {
@@ -85,6 +86,7 @@ export default function LoginPage() {
               <div className="flex justify-between mb-2">
                 <label className="text-sm font-medium text-slate-700">Password</label>
                 <button
+                type="button"
                   className="text-sm text-blue-600 hover:text-blue-700 transition"
                 >
                   Forgot password?
