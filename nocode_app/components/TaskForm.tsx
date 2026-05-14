@@ -75,7 +75,9 @@ export default function TaskForm({ onClose, onTaskCreated }: TaskFormProps) {
       );
 
       if (createResult.error) {
-        setError(createResult.error.message || 'Failed to create task');
+        setError(
+  (createResult.error as any)?.message || 'Failed to create task'
+);
         return;
       }
 

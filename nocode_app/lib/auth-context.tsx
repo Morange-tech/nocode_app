@@ -39,7 +39,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const response = await insforgeClient.auth.getCurrentUser();
 
       // Insforge likely returns { data, error } or direct user object
-      const rawUser = response?.data?.user || response?.user || response?.data || response;
+      const rawUser = response?.data ?? null;
       setUser(mapUser(rawUser));
     } catch (error) {
       console.error('Error refreshing user:', error);

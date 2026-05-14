@@ -27,10 +27,7 @@ export async function uploadAttachment(
 
     const uploadResult = await insforgeClient.storage
       .from(BUCKET_NAME)
-      .upload(fileName, file, {
-        cacheControl: '3600',
-        upsert: false,
-      });
+      .upload(fileName, file);
 
     if (uploadResult?.error) throw uploadResult.error;
 
@@ -60,7 +57,7 @@ export async function deleteAttachment(filePath: string): Promise<ServiceRespons
 
     const result = await insforgeClient.storage
       .from(BUCKET_NAME)
-      .remove([filePath]);
+      .remove(filePath);
 
     if (result?.error) throw result.error;
 

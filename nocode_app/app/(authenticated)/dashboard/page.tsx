@@ -166,8 +166,6 @@ export default function DashboardPage() {
       ) : (
         <TaskList
           tasks={filteredTasks}
-          onTaskUpdated={handleTaskUpdated}
-          onTaskDeleted={handleTaskDeleted}
           onTasksChange={loadTasks}
         />
       )}

@@ -6,17 +6,17 @@ import { useAuth } from '@/lib/auth-context';
 
 export default function Home() {
   const router = useRouter();
-  const { isAuthenticated, isLoading } = useAuth();
+  const { user, isLoading } = useAuth();
 
-  useEffect(() => {
-    if (!isLoading) {
-      if (isAuthenticated) {
-        router.replace('/dashboard');
-      } else {
-        router.replace('/auth/login');
-      }
+useEffect(() => {
+  if (!isLoading) {
+    if (user) {
+      router.replace('/dashboard');
+    } else {
+      router.replace('/auth/login');
     }
-  }, [isAuthenticated, isLoading, router]);
+  }
+}, [user, isLoading, router]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 to-slate-800">

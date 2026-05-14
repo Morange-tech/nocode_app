@@ -64,13 +64,13 @@ export async function signOut(): Promise<ServiceResponse> {
  */
 export async function getCurrentUser(): Promise<ServiceResponse> {
   try {
-    const { data: { session }, error } = await insforgeClient.auth.getSession();
+    const { data, error } = await insforgeClient.auth.getCurrentUser();
 
     if (error) throw error;
 
-    return { 
-      data: session?.user || null, 
-      error: null 
+    return {
+      data: data || null,
+      error: null,
     };
   } catch (error: any) {
     console.error('Error getting current user:', error);
@@ -83,13 +83,20 @@ export async function getCurrentUser(): Promise<ServiceResponse> {
 
 export async function resetPassword(email: string): Promise<ServiceResponse> {
   try {
-    const { error } = await insforgeClient.auth.resetPasswordForEmail(email, {
-      redirectTo: `${typeof window !== 'undefined' ? window.location.origin : ''}/reset-password`,
+    const { error } = await insforgeClient.auth.sendResetPasswordEmail({
+      email,
+      redirectTo:
+        typeof window !== 'undefined'
+          ? `${window.location.origin}/reset-password`
+          : undefined,
     });
 
     if (error) throw error;
 
-    return { data: { message: 'Reset password email sent' }, error: null };
+    return {
+      data: { message: 'Reset password email sent' },
+      error: null,
+    };
   } catch (error: any) {
     console.error('Error resetting password:', error);
     return {

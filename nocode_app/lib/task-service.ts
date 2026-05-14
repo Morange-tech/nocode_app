@@ -182,3 +182,10 @@ export async function searchTasks(query: string) {
     return { data: null, error };
   }
 }
+
+export type ServiceResult<T> = {
+  data: T | null;
+  error: {
+    message: string;
+  } | null;
+};

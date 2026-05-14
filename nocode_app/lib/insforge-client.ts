@@ -21,8 +21,4 @@ if (process.env.NODE_ENV === 'development') {
 export const insforgeClient = createClient({
   baseUrl: insforgeUrl,
   anonKey: insforgeAnonKey,
-  auth: {
-    persistSession: true,
-    autoRefreshToken: true,
-  },
 });
