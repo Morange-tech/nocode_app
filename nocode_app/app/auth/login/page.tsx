@@ -24,6 +24,9 @@ export default function LoginPage() {
     try {
       const { data, error: authError } = await signIn(email, password);
 
+       // 👇 Add these logs — check browser DevTools console
+    console.log('Auth response:', { data, error: authError });
+
       if (authError) {
         setError(authError.message || 'Invalid email or password');
         return;
@@ -33,6 +36,10 @@ export default function LoginPage() {
         await refreshUser();
         router.push('/dashboard');
       }
+      else {
+      // 👇 Add this fallback so it doesn't silently fail
+      setError('Sign in succeeded but no user was returned');
+    }
     } catch (err: any) {
       setError(err.message || 'An unexpected error occurred');
     } finally {
