@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "node -e \"console.log('INSFORGE=', process.env.NEXT_PUBLIC_INSFORGE_URL)\" && next build",
     "start": "next start",
     "lint": "eslint"
   },
@@ -30,9 +30,4 @@
     "tailwindcss": "^4",
     "typescript": "^5"
   }
-  {
-  "scripts": {
-    "build": "node -e \"console.log('INSFORGE=', process.env.NEXT_PUBLIC_INSFORGE_URL)\" && next build"
-  }
-}
 }
