@@ -77,12 +77,11 @@ export default function LoginPage() {
             <div>
               <div className="flex justify-between mb-2">
                 <label className="text-sm font-medium text-slate-700">Password</label>
-                <Link
-                  href="/auth/forgot-password"
+                <button
                   className="text-sm text-blue-600 hover:text-blue-700 transition"
                 >
                   Forgot password?
-                </Link>
+                </button>
               </div>
               <div className="relative">
                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
